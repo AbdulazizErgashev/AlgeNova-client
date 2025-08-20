@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Created with Next.js",
   generator: "Math.app",
   icons: {
-    icon: "/logo.png",
+    icon: "/logo without bg.png",
   },
 };
 
