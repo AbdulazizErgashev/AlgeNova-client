@@ -10,11 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Loader2, Wand2, Info } from "lucide-react";
 import Image from "next/image";
-<<<<<<< HEAD
-import { Footer } from "react-day-picker";
-=======
 import Footer from "@/components/footer/Footer";
->>>>>>> 44ba5611fe9664cadf7706ed677c1784fdc498d9
 
 export default function MathSolverApp() {
   const [inputFormula, setInputFormula] = useState("");
