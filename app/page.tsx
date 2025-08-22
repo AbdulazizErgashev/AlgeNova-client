@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Loader2, Wand2, Info } from "lucide-react";
 import Image from "next/image";
+import Footer from "@/components/footer/Footer";
 
 export default function MathSolverApp() {
   const [inputFormula, setInputFormula] = useState("");
@@ -77,6 +78,7 @@ export default function MathSolverApp() {
           {solutionData && <StepBySolution solution={solutionData} />}
         </section>
       </main>
+      <Footer />
     </TooltipProvider>
   );
 }
