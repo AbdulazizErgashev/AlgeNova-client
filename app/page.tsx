@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Loader2, Wand2, Info } from "lucide-react";
 import Image from "next/image";
+import { Footer } from "react-day-picker";
 
 export default function MathSolverApp() {
   const [inputFormula, setInputFormula] = useState("");
@@ -76,6 +77,8 @@ export default function MathSolverApp() {
           {errorMessage && <div className="text-red-600">{errorMessage}</div>}
           {solutionData && <StepBySolution solution={solutionData} />}
         </section>
+
+        <Footer />
       </main>
     </TooltipProvider>
   );
