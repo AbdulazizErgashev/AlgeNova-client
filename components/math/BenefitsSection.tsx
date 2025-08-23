@@ -10,6 +10,12 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Zap,
   BookOpen,
   Target,
@@ -75,7 +81,7 @@ const capabilities = [
 
 const BenefitsSection = () => {
   return (
-    <div className="space-y-10 ">
+    <div className="space-y-10">
       <div className="flex gap-5 max-lg:flex-col">
         <Image
           src={"./logo.png"}
@@ -84,49 +90,56 @@ const BenefitsSection = () => {
           height={300}
           className="rounded-4xl mx-auto object-cover"
         />
-        {/* === Benefits Grid === */}
-        <Card className="border-blue-200/60 bg-gradient-to-br from-blue-50/70 to-indigo-50/50 shadow-lg">
-          <CardHeader className="text-center space-y-3">
-            <CardTitle className="text-3xl font-bold text-blue-900">
-              Advanced Math Solver
-            </CardTitle>
-            <CardDescription className="text-lg text-blue-700">
-              Powered by natural language processing and detailed step-by-step
-              solutions.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={benefit.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/80 rounded-2xl p-6 shadow-md border border-white/60 hover:shadow-lg hover:scale-[1.02] transition-all"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="shrink-0 p-3 rounded-xl bg-gray-50 shadow-sm">
-                      {benefit.icon}
+
+        {/* === Desktop Version === */}
+        <div className="hidden md:block space-y-8 w-full">
+          {/* Benefits */}
+          <Card className="border-blue-200/60 bg-gradient-to-br from-blue-50/70 to-indigo-50/50 shadow-lg">
+            <CardHeader className="text-center space-y-3">
+              <CardTitle className="text-3xl font-bold text-blue-900">
+                Advanced Math Solver
+              </CardTitle>
+              <CardDescription className="text-lg text-blue-700">
+                Powered by natural language processing and detailed step-by-step
+                solutions.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {benefits.map((benefit, index) => (
+                  <motion.div
+                    key={benefit.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-white/80 rounded-2xl p-6 shadow-md border border-white/60 hover:shadow-lg hover:scale-[1.02] transition-all"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="shrink-0 p-3 rounded-xl bg-gray-50 shadow-sm">
+                        {benefit.icon}
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className="font-semibold text-gray-900">
+                          {benefit.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          {benefit.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <h3 className="font-semibold text-gray-900">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {benefit.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Capabilities */}
+        </div>
+
+        {/* === Mobile Version (Accordion for whole section) === */}
       </div>
-      {/* === Capabilities Showcase === */}
-      <Card className="border-green-200/60 bg-gradient-to-br from-green-50/70 to-emerald-50/50 shadow-lg">
+      <Card className="border-green-200/60 bg-gradient-to-br from-green-50/70 to-emerald-50/50 shadow-lg max-md:hidden">
         <CardHeader className="space-y-2">
           <CardTitle className="text-2xl font-bold text-green-900 flex items-center gap-2">
             <Calculator className="h-6 w-6" />
@@ -154,6 +167,52 @@ const BenefitsSection = () => {
           </div>
         </CardContent>
       </Card>
+      <div className="md:hidden w-full">
+        <Accordion type="single" collapsible className="w-full">
+          {/* Benefits Accordion */}
+          <AccordionItem value="benefits">
+            <AccordionTrigger className="font-semibold text-blue-900 text-lg">
+              🚀 Benefits
+            </AccordionTrigger>
+            <AccordionContent>
+              {benefits.map((benefit, i) => (
+                <div
+                  key={i}
+                  className="flex gap-3 p-3 border-b last:border-b-0"
+                >
+                  <div className="p-2 bg-gray-100 rounded-lg">
+                    {benefit.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">{benefit.title}</h4>
+                    <p className="text-sm text-gray-600">
+                      {benefit.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* Capabilities Accordion */}
+          <AccordionItem value="capabilities">
+            <AccordionTrigger className="font-semibold text-green-900 text-lg">
+              📘 Supported Operations
+            </AccordionTrigger>
+            <AccordionContent>
+              {capabilities.map((capability, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 py-2 border-b last:border-b-0"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                  <span className="text-sm">{capability}</span>
+                </div>
+              ))}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
     </div>
   );
 };
