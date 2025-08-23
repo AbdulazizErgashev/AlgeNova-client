@@ -19,6 +19,7 @@ import {
   CheckCircle2,
   Calculator,
 } from "lucide-react";
+import Image from "next/image";
 
 const benefits = [
   {
@@ -74,48 +75,56 @@ const capabilities = [
 
 const BenefitsSection = () => {
   return (
-    <div className="space-y-10">
-      {/* === Benefits Grid === */}
-      <Card className="border-blue-200/60 bg-gradient-to-br from-blue-50/70 to-indigo-50/50 shadow-lg">
-        <CardHeader className="text-center space-y-3">
-          <CardTitle className="text-3xl font-bold text-blue-900">
-            Advanced Math Solver with NLP
-          </CardTitle>
-          <CardDescription className="text-lg text-blue-700">
-            Powered by natural language processing and detailed step-by-step
-            solutions.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white/80 rounded-2xl p-6 shadow-md border border-white/60 hover:shadow-lg hover:scale-[1.02] transition-all"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="shrink-0 p-3 rounded-xl bg-gray-50 shadow-sm">
-                    {benefit.icon}
+    <div className="space-y-10 ">
+      <div className="flex gap-5">
+        <Image
+          src={"./logo.png"}
+          alt="Logo of AlgeNova"
+          width={300}
+          height={300}
+          className="rounded-4xl mx-auto object-cover"
+        />
+        {/* === Benefits Grid === */}
+        <Card className="border-blue-200/60 bg-gradient-to-br from-blue-50/70 to-indigo-50/50 shadow-lg">
+          <CardHeader className="text-center space-y-3">
+            <CardTitle className="text-3xl font-bold text-blue-900">
+              Advanced Math Solver
+            </CardTitle>
+            <CardDescription className="text-lg text-blue-700">
+              Powered by natural language processing and detailed step-by-step
+              solutions.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white/80 rounded-2xl p-6 shadow-md border border-white/60 hover:shadow-lg hover:scale-[1.02] transition-all"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 p-3 rounded-xl bg-gray-50 shadow-sm">
+                      {benefit.icon}
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="font-semibold text-gray-900">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-gray-900">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
+                </motion.div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
       {/* === Capabilities Showcase === */}
       <Card className="border-green-200/60 bg-gradient-to-br from-green-50/70 to-emerald-50/50 shadow-lg">
         <CardHeader className="space-y-2">

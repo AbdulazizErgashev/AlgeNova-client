@@ -45,13 +45,7 @@ export default function MathSolverApp() {
   return (
     <TooltipProvider>
       <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 min-2xl:px-[10%] min-lg:px-[5%] min-sm:px-[0%]">
-        <Image
-          src={"./logo.png"}
-          alt="Logo of AlgeNova"
-          width={500}
-          height={500}
-          className="rounded-4xl mx-auto"
-        />
+      
         <section className="p-8">
           <BenefitsSection />
         </section>
