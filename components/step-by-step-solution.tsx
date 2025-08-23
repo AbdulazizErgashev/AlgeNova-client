@@ -1,66 +1,120 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle, XCircle, Calculator, BookOpen } from "lucide-react"
+"use client";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle, XCircle, Calculator, BookOpen } from "lucide-react";
+import React, { useEffect, useState } from "react";
+
+// -------------------------------
+// KaTeX Renderer (SSR-safe)
+const KaTeXRenderer: React.FC<{ latex: string; block?: boolean }> = ({
+  latex,
+  block = true,
+}) => {
+  const [html, setHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const katex = await import("katex");
+        const out = katex.default.renderToString(latex || "\\,", {
+          throwOnError: false,
+          strict: "ignore",
+          displayMode: block,
+          trust: true,
+        });
+        if (mounted) setHtml(out);
+      } catch (e) {
+        if (mounted) setHtml(null);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, [latex, block]);
+
+  if (html === null) {
+    return (
+      <pre className="whitespace-pre-wrap text-sm text-muted-foreground font-mono overflow-x-auto">
+        {latex || ""}
+      </pre>
+    );
+  }
+
+  return (
+    <div
+      className={`prose max-w-none katex ${
+        block ? "my-2" : "inline-block align-middle"
+      }`}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+};
+
+// -------------------------------
+// Types
 interface MathStep {
-  step: number
-  description: string
-  expression: string
-  explanation: string
+  step: number;
+  description: string;
+  expression: string;
+  expressionLatex: string;
+  explanation: string;
 }
 
 interface Verification {
-  solution: string
-  leftSide?: string
-  rightSide?: string
-  isCorrect?: boolean
-  error?: string
+  solution: string;
+  leftSide?: string;
+  rightSide?: string;
+  isCorrect?: boolean;
+  error?: string;
 }
 
 interface MathSolution {
-  originalFormula: string
-  parsedFormula: string
-  steps: MathStep[]
-  finalAnswer: any
-  verification?: Verification[]
-  explanation: string
-  type: "equation" | "expression" | "derivative" | "integral"
+  originalFormula: string;
+  parsedFormula: string;
+  steps: MathStep[];
+  finalAnswer: string;
+  finalAnswerLatex: string;
+  verification?: Verification[];
+  explanation: string;
+  type: "equation" | "expression" | "derivative" | "integral";
 }
 
 interface StepBySolutionProps {
-  solution: MathSolution
+  solution: MathSolution;
+  verification?: Verification[];
 }
 
+// -------------------------------
 export function StepBySolution({ solution }: StepBySolutionProps) {
   const getTypeColor = (type: string) => {
     switch (type) {
       case "equation":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-100 text-blue-800";
       case "expression":
-        return "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800";
       case "derivative":
-        return "bg-purple-100 text-purple-800"
+        return "bg-purple-100 text-purple-800";
       case "integral":
-        return "bg-orange-100 text-orange-800"
+        return "bg-orange-100 text-orange-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "equation":
-        return <Calculator className="w-4 h-4" />
       case "expression":
-        return <Calculator className="w-4 h-4" />
+        return <Calculator className="w-4 h-4" />;
       case "derivative":
-        return <BookOpen className="w-4 h-4" />
       case "integral":
-        return <BookOpen className="w-4 h-4" />
+        return <BookOpen className="w-4 h-4" />;
       default:
-        return <Calculator className="w-4 h-4" />
+        return <Calculator className="w-4 h-4" />;
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
@@ -79,19 +133,29 @@ export function StepBySolution({ solution }: StepBySolutionProps) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <h4 className="font-medium text-sm text-gray-600 mb-1">Original Input:</h4>
-            <div className="bg-gray-50 p-3 rounded-lg font-mono text-lg">{solution.originalFormula}</div>
+            <h4 className="font-medium text-sm text-gray-600 mb-1">
+              Original Input:
+            </h4>
+            <div className="bg-gray-50 p-3 rounded-lg font-mono text-lg">
+              <KaTeXRenderer latex={solution.originalFormula} />
+            </div>
           </div>
 
           {solution.parsedFormula !== solution.originalFormula && (
             <div>
-              <h4 className="font-medium text-sm text-gray-600 mb-1">Parsed Formula:</h4>
-              <div className="bg-blue-50 p-3 rounded-lg font-mono text-lg">{solution.parsedFormula}</div>
+              <h4 className="font-medium text-sm text-gray-600 mb-1">
+                Parsed Formula:
+              </h4>
+              <div className="bg-blue-50 p-3 rounded-lg font-mono text-lg">
+                <KaTeXRenderer latex={solution.parsedFormula} />
+              </div>
             </div>
           )}
 
           <div>
-            <h4 className="font-medium text-sm text-gray-600 mb-1">Approach:</h4>
+            <h4 className="font-medium text-sm text-gray-600 mb-1">
+              Approach:
+            </h4>
             <p className="text-gray-700">{solution.explanation}</p>
           </div>
         </CardContent>
@@ -110,9 +174,13 @@ export function StepBySolution({ solution }: StepBySolutionProps) {
                   <Badge variant="outline" className="text-xs">
                     Step {step.step}
                   </Badge>
-                  <h4 className="font-medium text-gray-900">{step.description}</h4>
+                  <h4 className="font-medium text-gray-900">
+                    {step.description}
+                  </h4>
                 </div>
-                <div className="bg-gray-50 p-3 rounded-lg font-mono text-lg mb-2">{step.expression}</div>
+                <div className="bg-gray-50 p-3 rounded-lg font-mono text-lg mb-2">
+                  <KaTeXRenderer latex={step.expressionLatex} />
+                </div>
                 <p className="text-sm text-gray-600">{step.explanation}</p>
               </div>
             ))}
@@ -128,55 +196,11 @@ export function StepBySolution({ solution }: StepBySolutionProps) {
         <CardContent>
           <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
             <div className="font-mono text-xl text-green-800">
-              {Array.isArray(solution.finalAnswer) ? solution.finalAnswer.join(" or ") : solution.finalAnswer}
+              <KaTeXRenderer latex={solution.finalAnswerLatex} />
             </div>
           </div>
         </CardContent>
       </Card>
-
-      {/* Verification */}
-      {solution.verification && solution.verification.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600" />
-              Solution Verification
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {solution.verification.map((verify, index) => (
-                <div key={index} className="border rounded-lg p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    {verify.isCorrect ? (
-                      <CheckCircle className="w-4 h-4 text-green-600" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-red-600" />
-                    )}
-                    <span className="font-medium">{verify.solution}</span>
-                  </div>
-
-                  {verify.error ? (
-                    <p className="text-red-600 text-sm">{verify.error}</p>
-                  ) : (
-                    <div className="text-sm space-y-1">
-                      <div>
-                        Left side: <span className="font-mono">{verify.leftSide}</span>
-                      </div>
-                      <div>
-                        Right side: <span className="font-mono">{verify.rightSide}</span>
-                      </div>
-                      <div className={verify.isCorrect ? "text-green-600" : "text-red-600"}>
-                        {verify.isCorrect ? "✓ Solution is correct!" : "✗ Solution verification failed"}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
-  )
+  );
 }
