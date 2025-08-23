@@ -76,7 +76,7 @@ const capabilities = [
 const BenefitsSection = () => {
   return (
     <div className="space-y-10 ">
-      <div className="flex gap-5">
+      <div className="flex gap-5 max-lg:flex-col">
         <Image
           src={"./logo.png"}
           alt="Logo of AlgeNova"
