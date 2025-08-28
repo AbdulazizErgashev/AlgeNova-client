@@ -9,7 +9,6 @@ import { MathSolution } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Loader2, Wand2, Info } from "lucide-react";
-import Image from "next/image";
 import Footer from "@/components/footer/Footer";
 import "katex/dist/katex.min.css";
 
@@ -44,7 +43,7 @@ export default function MathSolverApp() {
 
   return (
     <TooltipProvider>
-      <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 min-2xl:px-[10%] min-lg:px-[5%] min-sm:px-[2%] min-lg:pb-10 min-md:pb-5 min-sm:pb-2">
+      <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 min-2xl:px-[10%] min-lg:px-[5%] min-sm:px-[2%]">
         <section className="">
           <BenefitsSection />
         </section>
