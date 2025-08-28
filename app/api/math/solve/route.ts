@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
     }
 
     const response = await fetch(
-      // "http://algenova-server.onrender.com/api/math/solve",
-      "http://localhost:5000/",
+      "http://algenova-server.onrender.com/api/math/solve",
+      // "http://localhost:5000/",
       {
         method: "POST",
         headers: {
