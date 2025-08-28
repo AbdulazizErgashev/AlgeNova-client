@@ -19,7 +19,8 @@ export async function POST(request: NextRequest) {
     }
 
     const response = await fetch(
-      "http://algenova-server.onrender.com/api/math/solve",
+      // "http://algenova-server.onrender.com/api/math/solve",
+      "http://localhost:5000/",
       {
         method: "POST",
         headers: {
@@ -42,6 +43,8 @@ export async function POST(request: NextRequest) {
         },
         { status: response.status }
       );
+    } else {
+      console.log(response);
     }
 
     const contentType = response.headers.get("content-type");

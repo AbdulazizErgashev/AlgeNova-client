@@ -44,7 +44,7 @@ export default function MathSolverApp() {
 
   return (
     <TooltipProvider>
-      <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 min-2xl:px-[10%] min-lg:px-[5%] min-sm:px-[2%]">
+      <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 min-2xl:px-[10%] min-lg:px-[5%] min-sm:px-[2%] min-lg:pb-10 min-md:pb-5 min-sm:pb-2">
         <section className="">
           <BenefitsSection />
         </section>
