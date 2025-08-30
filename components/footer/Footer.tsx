@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 
 const Footer = () => {
   return (
-    <footer className="py-8 border-t mt-16 bg-gradient-to-r from-white/70 to-gray-50/70 backdrop-blur-md">
+    <footer className="py-8 border-t bg-gradient-to-r from-white/70 to-gray-50/70 backdrop-blur-md">
       <div className={`max-w-5xl w-full mx-auto px-4`}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <span className="font-medium text-gray-700">

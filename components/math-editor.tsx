@@ -38,13 +38,21 @@ const KaTeXRenderer: React.FC<{ latex: string }> = ({ latex }) => {
     let mounted = true;
     (async () => {
       try {
+        const cleanLatex = (formula: string) => {
+          return formula
+            .replace(/\n/g, " ") // yangi qatorlarni olib tashla
+            .replace(/\s+/g, " ") // ortiqcha bo‘sh joylarni tozalash
+            .replace(/\\,/g, " "); // thin space’larni oddiy space qil
+        };
+
         const katex = await import("katex");
-        const out = katex.default.renderToString(latex || "\\,", {
+        const out = katex.default.renderToString(cleanLatex(latex) || "\\,", {
           throwOnError: false,
           strict: "ignore",
           displayMode: true,
           trust: true,
         });
+
         if (mounted) setHtml(out);
       } catch (e) {
         if (mounted) setHtml(null);
