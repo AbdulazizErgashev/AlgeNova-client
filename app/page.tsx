@@ -9,7 +9,6 @@ import { MathSolution } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Loader2, Wand2, Info } from "lucide-react";
-import Image from "next/image";
 import Footer from "@/components/footer/Footer";
 import "katex/dist/katex.min.css";
 
