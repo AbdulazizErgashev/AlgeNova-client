@@ -26,7 +26,8 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-6 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} AlgeNova. All rights reserved.
+          © {new Date().getFullYear()} AlgeNova. All rights reserved. Creator
+          Nurmuhammad.
         </div>
       </div>
     </footer>

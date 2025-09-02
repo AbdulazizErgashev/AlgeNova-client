@@ -4,12 +4,64 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AlgeNova",
-  description: "Created with Next.js",
+  title: "AlgeNova – Math Solver Engine",
+  description:
+    "AlgeNova – zamonaviy algebra, tenglamalar, integral va boshqa matematik formulalarga aniq va tezkor yechim topuvchi platforma.",
   generator: "Math.app",
+  applicationName: "AlgeNova",
+  authors: [{ name: "Nurmuhammad", url: "https://alge-nova.uz/" }],
+  keywords: [
+    "algebra solver",
+    "math equations",
+    "AI math",
+    "math problem solver",
+    "integrals",
+    "derivatives",
+    "quadratic equation",
+    "formulas",
+    "matematika yechim",
+    "online math help",
+  ],
   icons: {
     icon: "/logo without bg.png",
   },
+  openGraph: {
+    title: "AlgeNova – AI Math Solver",
+    description:
+      "AI yordamida algebra, tenglamalar, integral, hosila va murakkab matematik formulalarga yechim toping.",
+    url: "https://alge-nova.uz/",
+    siteName: "AlgeNova",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AlgeNova Math Solver",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AlgeNova – AI Math Solver",
+    description:
+      "Matematika muammolarini AI yordamida oson yeching – algebra, integral, tenglamalar va boshqa ko‘plab formulalar!",
+    images: ["/og-image.png"],
+    creator: "@algenova",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

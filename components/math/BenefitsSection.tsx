@@ -81,7 +81,7 @@ const capabilities = [
 
 const BenefitsSection = () => {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 min-xl:pt-10 min-md:pt-5 min-sm:pt-3">
       <div className="flex gap-5 max-lg:flex-col">
         <Image
           src={"./logo.png"}
