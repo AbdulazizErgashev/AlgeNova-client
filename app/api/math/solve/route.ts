@@ -6,10 +6,10 @@ interface MathSolveRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("[v0] API route called");
+    console.log("API route called");
 
     const body: MathSolveRequest = await request.json();
-    console.log("[v0] Request body:", body);
+    console.log("Request body:", body);
 
     if (!body.formula) {
       return NextResponse.json(
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     }
 
     const response = await fetch(
-      "http://algenova-server.onrender.com/api/math/solve",
+      "https://algenova-server.onrender.com/api/math/solve",
       // "http://localhost:5000/",
       {
         method: "POST",
