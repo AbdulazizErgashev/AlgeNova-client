@@ -5,81 +5,34 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AlgeNova – Math Solver Engine",
-  description:
-    "AlgeNova – zamonaviy algebra, tenglamalar, integral va boshqa matematik formulalarga aniq va tezkor yechim topuvchi platforma.",
-  generator: "Math.app",
-  applicationName: "AlgeNova",
-  authors: [{ name: "Nurmuhammad", url: "https://alge-nova.uz/" }],
-  keywords: [
-    "algebra solver",
-    "math equations",
-    "AI math",
-    "math problem solver",
-    "integrals",
-    "derivatives",
-    "quadratic equation",
-    "formulas",
-    "matematika yechim",
-    "online math help",
-  ],
+  description: "AlgeNova – zamonaviy algebra va matematik formulalar yechimi",
   icons: {
     icon: "/logo without bg.png",
   },
   openGraph: {
-    title: "AlgeNova – AI Math Solver",
-    description:
-      "AI yordamida algebra, tenglamalar, integral, hosila va murakkab matematik formulalarga yechim toping.",
+    title: "AlgeNova – Math Solver Engine",
+    description: "Engine yordamida algebra, tenglamalar va integral yechish",
     url: "https://alge-nova.uz/",
     siteName: "AlgeNova",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo without bg.png",
         width: 1200,
         height: 630,
-        alt: "AlgeNova Math Solver",
+        alt: "AlgeNova",
       },
     ],
-    locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "AlgeNova – AI Math Solver",
-    description:
-      "Matematika muammolarini AI yordamida oson yeching – algebra, integral, tenglamalar va boshqa ko‘plab formulalar!",
-    images: ["/og-image.png"],
-    creator: "@algenova",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
-  },
-  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
-      </head>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>{children}</body>
     </html>
   );

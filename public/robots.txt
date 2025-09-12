@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alge-nova.uz/sitemap.xml
