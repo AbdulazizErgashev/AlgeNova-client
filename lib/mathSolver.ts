@@ -1,3 +1,4 @@
+// lib/mathSolver.ts
 import { MathSolution } from "./types";
 
 export class MathSolverError extends Error {
@@ -12,37 +13,30 @@ export const solveMathEquation = async (
   abortSignal?: AbortSignal
 ): Promise<MathSolution> => {
   try {
-    const response = await fetch("/api/math/solve", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ formula }),
-      signal: abortSignal,
-    });
+    const response = await fetch(
+      "https://math-engine.alge-nova.uz/api/math/solve",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formula }),
+        signal: abortSignal,
+      }
+    );
 
     if (!response.ok) {
-      const errorData: any = await response.json().catch(() => ({
-        error: "Failed to parse error response",
-      }));
+      const errorText = await response.text();
       throw new MathSolverError(
-        errorData.error || `HTTP ${response.status}: ${response.statusText}`,
-        errorData.details
+        `Math server error: ${response.status} ${response.statusText}`,
+        errorText
       );
     }
 
-    return await response.json();
-  } catch (error) {
-    if (error instanceof MathSolverError) throw error;
-    if (error instanceof Error) {
-      if (error.name === "AbortError") {
-        throw new MathSolverError("Request was cancelled");
-      }
-      if (error.message.includes("fetch")) {
-        throw new MathSolverError(
-          "Unable to connect to math solver server. Please check your connection."
-        );
-      }
-      throw new MathSolverError(error.message);
+    const data = await response.json();
+    return data as MathSolution;
+  } catch (err: any) {
+    if (err.name === "AbortError") {
+      throw new MathSolverError("Request aborted by user");
     }
-    throw new MathSolverError("An unexpected error occurred");
+    throw new MathSolverError("Failed to connect to math server", err.message);
   }
 };
